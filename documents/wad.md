@@ -1,4 +1,4 @@
-# WAD
+a# WAD
 ## Introdução
 
 Este documento faz parte do repositório e apresenta uma visão geral do projeto, com foco na estrutura do banco de dados.
@@ -7,7 +7,7 @@ Este documento faz parte do repositório e apresenta uma visão geral do projeto
 
 A imagem abaixo ilustra o modelo de banco de dados utilizado:
   
-![Modelo do Banco](Modelo-Banco.png)
+![Modelo do Banco](../assets/Modelo-Banco.png)
 
 
 
