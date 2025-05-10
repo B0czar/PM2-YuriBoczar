@@ -1,40 +1,57 @@
-a# WAD
-## Introdução
+# Web Application Document - Projeto Individual - Módulo 2 - Inteli
 
-Este documento faz parte do repositório e apresenta uma visão geral do projeto, com foco na estrutura do banco de dados.
+Estou fazendo a opção 1, gerenciador de tarefas.
 
-## Modelo de Banco de Dados
+### Modelagem do banco de dados  (Semana 3)
 
-A imagem abaixo ilustra o modelo de banco de dados utilizado:
-  
-![Modelo do Banco](../assets/Modelo-Banco.png)
+![Imagem de exemplo](../assets/Modelo-Banco.png)
 
-
-
-
-## to self -----------------------------------------------------------------------------------------------------
-
-Configuração do Banco de Dados
-------------------------------
-
-1. **Criar banco de dados:**
-    
-    Crie um banco de dados PostgreSQL com o nome especificado no seu arquivo `.env`.
-    
-2. **Executar o script SQL de inicialização:**
-    
-```bash
-npm run init-db
 ```
-    
-Isso criará a tabela `users` no seu banco de dados PostgreSQL com UUID como chave primária e inserirá alguns registros de exemplo.
-    
+-- função para atualizar updated_at
+create or replace function set_updated_at() returns trigger as $$
+begin
+  new.updated_at = now();
+  return new;
+end;
+$$ language plpgsql;
 
-Scripts Disponíveis
--------------------
+-- tabela users
+CREATE TABLE IF NOT EXISTS users (
+  id          UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  name        VARCHAR(255) NOT NULL,
+  email       VARCHAR(255) NOT NULL UNIQUE,
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE TRIGGER trg_users_updated_at
+  BEFORE UPDATE ON users
+  FOR EACH ROW EXECUTE PROCEDURE set_updated_at();
 
-* `npm start`: Inicia o servidor Node.js.
-* `npm run dev`: Inicia o servidor com `nodemon`, reiniciando automaticamente após alterações no código.
-* `npm run test`: Executa os testes automatizados.
-* `npm run test:coverage`: Executa os testes e gera um relatório de cobertura de código.
+-- tabela categories
+CREATE TABLE IF NOT EXISTS categories (
+  id          UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  name        VARCHAR(255) NOT NULL,
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE TRIGGER trg_categories_updated_at
+  BEFORE UPDATE ON categories
+  FOR EACH ROW EXECUTE PROCEDURE set_updated_at();
 
+-- tabela tasks
+CREATE TABLE IF NOT EXISTS tasks (
+  id          UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  title       VARCHAR(255) NOT NULL,
+  description TEXT NOT NULL,
+  status      VARCHAR(255) NOT NULL,
+  user_id     UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  category_id UUID NOT NULL REFERENCES categories(id) ON DELETE SET NULL,
+  due_date    DATE NOT NULL,
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE TRIGGER trg_tasks_updated_at
+  BEFORE UPDATE ON tasks
+  FOR EACH ROW EXECUTE PROCEDURE set_updated_at();
+
+```
