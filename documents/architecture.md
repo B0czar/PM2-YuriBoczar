@@ -11,7 +11,7 @@ flowchart TB
 
     %% Servidor
     subgraph Servidor
-        render[Render\n(Composição de páginas HTML)]
+        render[Render\nComposicao de paginas HTML]
 
         %% Views
         subgraph Views
