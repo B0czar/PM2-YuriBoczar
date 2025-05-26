@@ -1,85 +1,128 @@
-# Base do projeto: 
+# Gerenciador de Tarefas
+
+Um sistema de gerenciamento de tarefas desenvolvido com Node.js, Express e PostgreSQL, seguindo a arquitetura MVC.
+
+## Tecnologias Utilizadas
+
+-   Node.js
+-   Express.js
+-   PostgreSQL
+-   pg (cliente PostgreSQL para Node.js)
+-   dotenv (gerenciamento de variáveis de ambiente)
+
+## Estrutura do Projeto
+
 ```
-Boilerplate MVC em Node.js com PostgreSQL
-
-Este projeto é um boilerplate básico para uma aplicação Node.js seguindo o padrão MVC (Model-View-Controller), utilizando PostgreSQL como banco de dados.
-```
-
-## Opção 1: Gerenciador de tarefas para organização e produtividade.
-
-## Descrição do Sistema Escolhido
-Este repositório contém um sistema de gerenciamento de tarefas que visa auxiliar na organização e aumentar a produtividade do usuário. O projeto utiliza Node.js com o padrão MVC e integra um banco de dados PostgreSQL para armazenar e manipular as informações.
-
-## Estrutura de Pastas e Arquivos
-```
-PM2-YURIBOCZAR/
+.
 ├── config/
-│ └── db.js # Conexão e configuração do banco de dados
-│
-├── assets/    
-|   └── modelo-banco.png # Diagrama relacional exportado
-|
+│   └── database.js      # Configuração do banco de dados
 ├── controllers/
-│ ├── eventController.js # Lógica de eventos (criar, listar, detalhes)
-│ └── userController.js # Lógica de usuários e autenticação
-│
+│   └── TaskController.js # Controlador de tarefas
 ├── models/
-│ ├── eventModel.js # Definição das tabelas de evento
-│ ├── userModel.js # Definição da tabela de usuário
-│ └── ... # demais modelos (reminders, attendees, etc.)
-│
+│   └── TaskModel.js     # Modelo de tarefas
 ├── routes/
-│ ├── eventRoutes.js # Endpoints relacionados a eventos
-│ ├── userRoutes.js # Endpoints de usuário e integração
-│ └── index.js # Importa todas as rotas no Express
-│
-├── services/
-│ └── calendarService.js # Comunicação com APIs externas (Google, Outlook)
-│
-├── documents/
-| └── WAD.md # Wireframes e diagrama de dados
-|
-├── views/
-│ ├── layouts/ # Cabeçalho, rodapé e templates gerais (.ejs)
-│ └── pages/ # dashboard.ejs, details.ejs, login.ejs…
-│
-├── public/
-│ ├── assets/ # Imagens, ícones
-│ ├── scripts/ # JS do front-end
-│ └── styles/ # CSS / SCSS
-│
-├── tests/
-│ └── example.test.js # Testes unitários (Jest)
-│
-├── .gitignore
-├── .env.example # Variáveis de ambiente (sem valores reais)
-├── jest.config.js
+│   └── index.js         # Definição das rotas
+├── scripts/
+│   └── init.sql         # Script de inicialização do banco
+├── .env                 # Variáveis de ambiente
 ├── package.json
-├── package-lock.json
-├── server.js # Pontapé inicial do Express
-├── rest.http # Coleção para testar endpoints
-├── README.md # Este documento
-
+└── server.js           # Ponto de entrada da aplicação
 ```
 
-## Como Executar o Projeto Localmente
-Siga os passos abaixo para rodar o projeto em seu ambiente:
+## Configuração do Ambiente
+
 1. Clone o repositório:
-    ```
+
+    ```bash
     git clone <URL_DO_REPOSITORIO>
     ```
+
 2. Instale as dependências:
-    ```
+
+    ```bash
     npm install
     ```
-3. Configure as variáveis de ambiente, criando um arquivo `.env` com as configurações necessárias (como dados do PostgreSQL e porta do servidor).
-4. Execute as migrações do banco de dados, se aplicável:
+
+3. Configure as variáveis de ambiente:
+   Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
+
     ```
-    npm run migrate
+    DB_HOST=seu_host
+    DB_PORT=5432
+    DB_USER=seu_usuario
+    DB_PASSWORD=sua_senha
+    DB_DATABASE=nome_do_banco
     ```
+
+4. Inicialize o banco de dados:
+
+    ```bash
+    npm run init-db
+    ```
+
 5. Inicie o servidor:
-    ```
+    ```bash
     npm start
     ```
-6. Acesse a aplicação através do seu navegador, utilizando a URL e a porta configuradas.
 
+## API Endpoints
+
+### Tarefas
+
+-   `POST /api/tasks` - Criar uma nova tarefa
+
+    ```json
+    {
+        "title": "Título da tarefa",
+        "description": "Descrição da tarefa",
+        "status": "pending",
+        "user_id": "uuid-do-usuario",
+        "category_id": "uuid-da-categoria",
+        "due_date": "2024-03-20"
+    }
+    ```
+
+-   `GET /api/tasks` - Listar todas as tarefas
+
+-   `GET /api/tasks/:id` - Buscar uma tarefa específica
+
+-   `PUT /api/tasks/:id` - Atualizar uma tarefa
+
+    ```json
+    {
+        "title": "Novo título",
+        "description": "Nova descrição",
+        "status": "completed",
+        "user_id": "uuid-do-usuario",
+        "category_id": "uuid-da-categoria",
+        "due_date": "2024-03-21"
+    }
+    ```
+
+-   `DELETE /api/tasks/:id` - Deletar uma tarefa
+
+-   `GET /api/users/:userId/tasks` - Listar tarefas de um usuário específico
+
+## Arquitetura MVC
+
+O projeto segue a arquitetura MVC (Model-View-Controller):
+
+-   **Model (TaskModel.js)**: Responsável pela lógica de negócios e interação com o banco de dados
+-   **View**: Neste projeto, a view é representada pela API REST
+-   **Controller (TaskController.js)**: Gerencia as requisições HTTP e coordena a interação entre Model e View
+
+## Testes
+
+Para executar os testes:
+
+```bash
+npm test
+```
+
+## Contribuição
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
+3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
+4. Push para a branch (`git push origin feature/nova-feature`)
+5. Abra um Pull Request

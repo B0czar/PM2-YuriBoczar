@@ -1,14 +1,32 @@
-const db = require('../config/db');
+const pool = require('../config/database');
 
 class User {
-  static async getAll() {
-    const result = await db.query('SELECT * FROM users');
-    return result.rows;
+  static async create(userData) {
+    const { name, email } = userData;
+    const query = `
+      INSERT INTO users (name, email)
+      VALUES ($1, $2)
+      RETURNING *
+    `;
+    const values = [name, email];
+    
+    try {
+      const result = await pool.query(query, values);
+      return result.rows[0];
+    } catch (error) {
+      throw new Error(`Erro ao criar usuário: ${error.message}`);
+    }
   }
 
-  static async getById(id) {
-    const result = await db.query('SELECT * FROM users WHERE id = $1', [id]);
-    return result.rows[0];
+  static async findAll() {
+    const query = 'SELECT * FROM users ORDER BY created_at DESC';
+    
+    try {
+      const result = await pool.query(query);
+      return result.rows;
+    } catch (error) {
+      throw new Error(`Erro ao listar usuários: ${error.message}`);
+    }
   }
 
   static async create(data) {

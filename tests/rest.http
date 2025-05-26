@@ -1,0 +1,130 @@
+# Teste da rota GET /users
+GET http://localhost:3000/users
+Accept: application/json
+
+###
+
+# Teste da rota GET /users/:id
+GET http://localhost:3000/users/39602f41-b43e-4fa8-b7f7-34c7a516740b
+Accept: application/json
+
+###
+
+# Teste da rota POST /users
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john@example.com"
+}
+
+###
+
+# Teste da rota PUT /users/:id
+PUT http://localhost:3000/users/39602f41-b43e-4fa8-b7f7-34c7a516740b
+Content-Type: application/json
+
+{
+  "name": "Jane Doe",
+  "email": "jane@example.com"
+}
+
+###
+
+# Teste da rota DELETE /users/:id
+DELETE http://localhost:3000/users/39602f41-b43e-4fa8-b7f7-34c7a516740b
+Accept: application/json
+
+### Variáveis de ambiente
+@baseUrl = http://localhost:3000/api
+
+### Criar um usuário
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+    "name": "João Silva",
+    "email": "joao@example.com"
+}
+
+### Listar todos os usuários
+GET {{baseUrl}}/users
+
+### Buscar um usuário específico
+GET {{baseUrl}}/users/123e4567-e89b-12d3-a456-426614174000
+
+### Atualizar um usuário
+PUT {{baseUrl}}/users/123e4567-e89b-12d3-a456-426614174000
+Content-Type: application/json
+
+{
+    "name": "João Silva Atualizado",
+    "email": "joao.atualizado@example.com"
+}
+
+### Deletar um usuário
+DELETE {{baseUrl}}/users/123e4567-e89b-12d3-a456-426614174000
+
+### Criar uma categoria
+POST {{baseUrl}}/categories
+Content-Type: application/json
+
+{
+    "name": "Trabalho"
+}
+
+### Listar todas as categorias
+GET {{baseUrl}}/categories
+
+### Buscar uma categoria específica
+GET {{baseUrl}}/categories/123e4567-e89b-12d3-a456-426614174000
+
+### Atualizar uma categoria
+PUT {{baseUrl}}/categories/123e4567-e89b-12d3-a456-426614174000
+Content-Type: application/json
+
+{
+    "name": "Trabalho Atualizado"
+}
+
+### Deletar uma categoria
+DELETE {{baseUrl}}/categories/123e4567-e89b-12d3-a456-426614174000
+
+### Criar uma tarefa
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+
+{
+    "title": "Implementar API",
+    "description": "Criar endpoints para o sistema de tarefas",
+    "status": "pending",
+    "user_id": "123e4567-e89b-12d3-a456-426614174000",
+    "category_id": "123e4567-e89b-12d3-a456-426614174000",
+    "due_date": "2024-03-20"
+}
+
+### Listar todas as tarefas
+GET {{baseUrl}}/tasks
+
+### Buscar uma tarefa específica
+GET {{baseUrl}}/tasks/123e4567-e89b-12d3-a456-426614174000
+
+### Atualizar uma tarefa
+PUT {{baseUrl}}/tasks/123e4567-e89b-12d3-a456-426614174000
+Content-Type: application/json
+
+{
+    "title": "Implementar API Atualizado",
+    "description": "Criar endpoints para o sistema de tarefas - Atualizado",
+    "status": "completed",
+    "user_id": "123e4567-e89b-12d3-a456-426614174000",
+    "category_id": "123e4567-e89b-12d3-a456-426614174000",
+    "due_date": "2024-03-21"
+}
+
+### Deletar uma tarefa
+DELETE {{baseUrl}}/tasks/123e4567-e89b-12d3-a456-426614174000
+
+### Listar tarefas de um usuário específico
+GET {{baseUrl}}/users/123e4567-e89b-12d3-a456-426614174000/tasks

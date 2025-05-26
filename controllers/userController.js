@@ -1,10 +1,10 @@
 // controllers/userController.js
 
-const userService = require('../services/userService');
+const User = require('../models/UserModel');
 
 const getAllUsers = async (req, res) => {
   try {
-    const users = await userService.getAllUsers();
+    const users = await User.findAll();
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -13,7 +13,7 @@ const getAllUsers = async (req, res) => {
 
 const getUserById = async (req, res) => {
   try {
-    const user = await userService.getUserById(req.params.id);
+    const user = await User.findById(req.params.id);
     if (user) {
       res.status(200).json(user);
     } else {
@@ -26,9 +26,9 @@ const getUserById = async (req, res) => {
 
 const createUser = async (req, res) => {
   try {
-    const { name, email } = req.body;
-    const newUser = await userService.createUser(name, email);
-    res.status(201).json(newUser);
+    const userData = req.body;
+    const user = await User.create(userData);
+    res.status(201).json(user);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -36,13 +36,16 @@ const createUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
-    const { name, email } = req.body;
-    const updatedUser = await userService.updateUser(req.params.id, name, email);
-    if (updatedUser) {
-      res.status(200).json(updatedUser);
-    } else {
-      res.status(404).json({ error: 'Usuário não encontrado' });
+    const { id } = req.params;
+    const userData = req.body;
+    
+    const user = await User.update(id, userData);
+    
+    if (!user) {
+      return res.status(404).json({ message: 'Usuário não encontrado' });
     }
+    
+    res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -50,12 +53,14 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
-    const deletedUser = await userService.deleteUser(req.params.id);
-    if (deletedUser) {
-      res.status(200).json(deletedUser);
-    } else {
-      res.status(404).json({ error: 'Usuário não encontrado' });
+    const { id } = req.params;
+    const user = await User.delete(id);
+    
+    if (!user) {
+      return res.status(404).json({ message: 'Usuário não encontrado' });
     }
+    
+    res.status(200).json({ message: 'Usuário deletado com sucesso' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
