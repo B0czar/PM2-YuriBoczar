@@ -1,75 +1,85 @@
 # Arquitetura MVC do Sistema de Gerenciamento de Tarefas
 
 ```mermaid
-graph TB
-    subgraph "Frontend/API"
-        View[View Layer<br/>API Endpoints]
+flowchart LR
+    subgraph Usuario[Usuário]
+        user["👤 Usuário"]
     end
 
-    subgraph "Backend"
-        Controller[Controller Layer<br/>TaskController]
-        Model[Model Layer<br/>TaskModel]
+    subgraph Cliente[Cliente (Navegador)]
+        browser["🌐 Navegador<br/>(Postman, Frontend, etc)"]
     end
 
-    subgraph "Database"
-        DB[(PostgreSQL<br/>Database)]
+    subgraph Servidor[Servidor (Node.js/Express)]
+        subgraph Views[Views]
+            viewList[Listar Tarefas]
+            viewForm[Formulário]
+            viewHeader[Header]
+        end
+        subgraph Controllers[Controllers]
+            ctrlUsers[Users]
+            ctrlTasks[Tasks]
+            ctrlCategories[Categories]
+        end
+        subgraph Models[Models]
+            modelUser[User\n(id, nome, email)]
+            modelTask[Task\n(id, título, status, userId, categoryId)]
+            modelCategory[Category\n(id, nome)]
+        end
     end
 
-    %% Connections
-    View <-->|HTTP Requests/Responses| Controller
-    Controller <-->|Data Operations| Model
-    Model <-->|SQL Queries| DB
+    subgraph DBServer[Servidor Banco de Dados]
+        db[(PostgreSQL)]
+    end
 
-    %% Styling
-    classDef default fill:#f9f9f9,stroke:#333,stroke-width:2px;
-    classDef view fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
-    classDef controller fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px;
-    classDef model fill:#fff3e0,stroke:#e65100,stroke-width:2px;
-    classDef database fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+    %% Fluxo de comunicação
+    user -- Interação --> browser
+    browser -- HTTP Requests/Responses --> viewList
+    browser -- HTTP Requests/Responses --> viewForm
+    browser -- HTTP Requests/Responses --> viewHeader
+    viewList -- Chama --> ctrlTasks
+    viewForm -- Chama --> ctrlTasks
+    viewHeader -- Chama --> ctrlUsers
+    ctrlUsers -- CRUD Users --> modelUser
+    ctrlTasks -- CRUD Tasks --> modelTask
+    ctrlCategories -- CRUD Categories --> modelCategory
+    modelUser -- SQL --> db
+    modelTask -- SQL --> db
+    modelCategory -- SQL --> db
 
-    class View view;
-    class Controller controller;
-    class Model model;
-    class DB database;
+    %% Estilização
+    classDef cliente fill:#e3f2fd,stroke:#1976d2,stroke-width:2px;
+    classDef servidor fill:#e8f5e9,stroke:#388e3c,stroke-width:2px;
+    classDef db fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
+    classDef usuario fill:#fffde7,stroke:#fbc02d,stroke-width:2px;
+    class browser,cliente;
+    class Servidor,servidor;
+    class db,db;
+    class user,usuario;
 ```
 
 ## Descrição dos Componentes
 
-### View Layer
+### Usuário e Cliente
 
--   Representa a interface da API REST
--   Endpoints HTTP para interação com o sistema
--   Responsável por receber requisições e enviar respostas
--   Formata os dados para apresentação
+-   **Usuário**: Pessoa que interage com o sistema via navegador ou ferramenta de API.
+-   **Cliente**: Navegador ou ferramenta (ex: Postman) que faz requisições HTTP para o servidor.
 
-### Controller Layer
+### Servidor (Node.js/Express)
 
--   Gerencia as requisições HTTP
--   Implementa a lógica de negócios
--   Coordena a comunicação entre View e Model
--   Valida dados de entrada
--   Processa respostas
+-   **Views**: Responsáveis por formatar e entregar as respostas da API.
+-   **Controllers**: Implementam a lógica de negócio, recebem requisições, validam dados e coordenam as operações.
+-   **Models**: Representam as entidades do banco de dados e executam operações SQL.
 
-### Model Layer
+### Banco de Dados
 
--   Implementa a lógica de acesso aos dados
--   Gerencia as operações do banco de dados
--   Define a estrutura dos dados
--   Implementa validações de dados
-
-### Database
-
--   Armazena os dados persistentes
--   Tabelas principais:
-    -   Users
-    -   Tasks
-    -   Categories
--   Relacionamentos entre entidades
+-   **PostgreSQL**: Armazena dados persistentes das entidades (Users, Tasks, Categories).
 
 ## Fluxo de Dados
 
-1. **Requisição HTTP** → View Layer
-2. **Processamento** → Controller Layer
-3. **Operações de Dados** → Model Layer
-4. **Persistência** → Database
-5. **Resposta** → View Layer → Cliente
+1. Usuário interage com o Cliente (navegador ou ferramenta de API).
+2. Cliente faz requisições HTTP para o Servidor.
+3. Views recebem as requisições e encaminham para os Controllers.
+4. Controllers processam a lógica e interagem com os Models.
+5. Models executam operações no Banco de Dados.
+6. Respostas são devolvidas ao Cliente e apresentadas ao Usuário.

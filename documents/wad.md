@@ -33,6 +33,10 @@ O Gerenciador de Tarefas é uma aplicação web que permite aos usuários gerenc
     - Criação e personalização de categorias
     - Organização de tarefas por categoria
 
+## Referência de Arquitetura
+
+Para uma visão geral da arquitetura do sistema, consulte o diagrama atualizado no arquivo [`documents/architecture.md`](architecture.md). O diagrama segue o padrão de mercado MVC, mostrando claramente a separação entre Cliente, Servidor (Views, Controllers, Models) e Banco de Dados, além do fluxo de comunicação entre as camadas.
+
 ## Diagrama do Banco de Dados
 
 O sistema utiliza um banco de dados PostgreSQL com as seguintes tabelas principais:
