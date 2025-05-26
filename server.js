@@ -2,6 +2,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const path = require("path");
 const routes = require("./routes");
 const pool = require("./config/database");
 
@@ -11,6 +12,12 @@ const port = 3000;
 // Middlewares
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "views")));
+
+// Rota para a página inicial
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "views", "pages", "home.html"));
+});
 
 // Usando as rotas definidas
 app.use("/api", routes);
