@@ -261,6 +261,7 @@ npm run test:watch
 ## Documentação
 
 -   [WAD.md](documents/wad.md) - Documento de arquitetura web com detalhes sobre a estrutura do sistema, banco de dados e API
+-   [architecture.md](documents/architecture.md) - Diagrama detalhado da arquitetura do sistema, com fluxos, entidades e camadas
 -   [README.md](README.md) - Este arquivo, contendo instruções de instalação e uso
 
 ## Contribuição

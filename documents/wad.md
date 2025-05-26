@@ -35,7 +35,7 @@ O Gerenciador de Tarefas é uma aplicação web que permite aos usuários gerenc
 
 ## Referência de Arquitetura
 
-Para uma visão geral da arquitetura do sistema, consulte o diagrama atualizado no arquivo [`documents/architecture.md`](architecture.md). O diagrama segue o padrão de mercado MVC, mostrando claramente a separação entre Cliente, Servidor (Views, Controllers, Models) e Banco de Dados, além do fluxo de comunicação entre as camadas.
+Para uma visão detalhada da arquitetura do sistema, consulte o diagrama atualizado no arquivo [`documents/architecture.md`](architecture.md). O diagrama apresenta a separação entre Cliente, Servidor (Render, Views, Controllers, Models) e Banco de Dados, com todos os fluxos, entidades e métodos principais do projeto.
 
 ## Diagrama do Banco de Dados
 

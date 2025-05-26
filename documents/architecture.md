@@ -11,28 +11,28 @@ flowchart TB
 
     %% Servidor
     subgraph Servidor
-        render[Render\nComposicao de paginas HTML]
+        render[Render<br>Composicao de paginas HTML]
 
         %% Views
         subgraph Views
-            viewList[List]
-            viewHeader[Header]
-            viewCarrossel[Carrossel]
-            viewForm[Form]
+            viewTaskList[TaskList]
+            viewTaskForm[TaskForm]
+            viewUserList[UserList]
+            viewCategoryList[CategoryList]
         end
 
         %% Controllers
         subgraph Controllers
-            ctrlUsers[Users\n- Listar\n- Gravar\n- Deletar\n- Procurar]
-            ctrlTasks[Tasks\n- Listar\n- Gravar\n- Deletar\n- Procurar]
-            ctrlCategories[Categories\n- Listar\n- Gravar\n- Deletar\n- Procurar]
+            ctrlUsers[UsersController<br>- Listar<br>- Gravar<br>- Deletar<br>- Procurar]
+            ctrlTasks[TasksController<br>- Listar<br>- Gravar<br>- Deletar<br>- Procurar]
+            ctrlCategories[CategoriesController<br>- Listar<br>- Gravar<br>- Deletar<br>- Procurar]
         end
 
         %% Models
         subgraph Models
-            modelUser[User\nid\nnome\nemail]
-            modelTask[Task\nid\ntitle\ndescription\nstatus\nuserId\ncategoryId]
-            modelCategory[Category\nid\nname]
+            modelUser[User<br>id<br>nome<br>email]
+            modelTask[Task<br>id<br>title<br>description<br>status<br>userId<br>categoryId]
+            modelCategory[Category<br>id<br>name]
         end
     end
 
@@ -43,16 +43,16 @@ flowchart TB
 
     %% Fluxo Cliente -> Servidor
     browser -- HTTP Request --> render
-    render -- Renderiza --> viewList
-    render -- Renderiza --> viewHeader
-    render -- Renderiza --> viewCarrossel
-    render -- Renderiza --> viewForm
+    render -- Renderiza --> viewTaskList
+    render -- Renderiza --> viewTaskForm
+    render -- Renderiza --> viewUserList
+    render -- Renderiza --> viewCategoryList
 
     %% Views -> Controllers
-    viewList -- Chama --> ctrlTasks
-    viewHeader -- Chama --> ctrlUsers
-    viewCarrossel -- Chama --> ctrlTasks
-    viewForm -- Chama --> ctrlTasks
+    viewTaskList -- Chama --> ctrlTasks
+    viewTaskForm -- Chama --> ctrlTasks
+    viewUserList -- Chama --> ctrlUsers
+    viewCategoryList -- Chama --> ctrlCategories
 
     %% Controllers -> Models
     ctrlUsers -- CRUD --> modelUser
@@ -75,8 +75,8 @@ flowchart TB
 ### Servidor (Node.js/Express)
 
 -   **Render**: Responsável por compor e devolver as páginas HTML (ou respostas da API).
--   **Views**: Componentes de apresentação (List, Header, Carrossel, Form).
--   **Controllers**: Implementam a lógica de negócio, recebem requisições, validam dados e coordenam as operações (Users, Tasks, Categories).
+-   **Views**: Componentes de apresentação (TaskList, TaskForm, UserList, CategoryList).
+-   **Controllers**: Implementam a lógica de negócio, recebem requisições, validam dados e coordenam as operações (UsersController, TasksController, CategoriesController).
 -   **Models**: Representam as entidades do banco de dados e executam operações SQL (User, Task, Category).
 
 ### Banco de Dados
