@@ -5,6 +5,7 @@ const cors = require("cors");
 const path = require("path");
 const routes = require("./routes");
 const pool = require("./config/database");
+const expressLayouts = require('express-ejs-layouts');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -12,12 +13,20 @@ const port = process.env.PORT || 3000;
 // Configuração do EJS
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.use(expressLayouts);
+app.set('layout', 'layouts/main');
 
 // Middlewares
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
+
+// Set charset for all responses
+app.use((req, res, next) => {
+    res.charset = 'utf-8';
+    next();
+});
 
 // Middleware de erro global
 app.use((err, req, res, next) => {
@@ -33,19 +42,19 @@ app.use("/api", routes);
 
 // Rotas do frontend
 app.get("/", (req, res) => {
-    res.render('pages/home');
+    res.render('pages/home', { pageScript: 'home', title: 'Home' });
 });
 
 app.get("/tasks", (req, res) => {
-    res.render('pages/tasks');
+    res.render('pages/tasks', { pageScript: 'tasks', title: 'Tarefas' });
 });
 
 app.get("/categories", (req, res) => {
-    res.render('pages/categories');
+    res.render('pages/categories', { pageScript: 'categories', title: 'Categorias' });
 });
 
 app.get("/users", (req, res) => {
-    res.render('pages/users');
+    res.render('pages/users', { pageScript: 'users', title: 'Usuários' });
 });
 
 // Rota 404
