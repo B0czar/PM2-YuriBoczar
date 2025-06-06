@@ -10,24 +10,26 @@ const pool = new Pool({
     ssl: {
         rejectUnauthorized: false,
     },
-    max: 20,
-    idleTimeoutMillis: 60000,
-    connectionTimeoutMillis: 30000,
-    maxUses: 100000,
+    max: 10,
+    idleTimeoutMillis: 30000,
+    connectionTimeoutMillis: 10000,
+    maxUses: 7500,
     keepAlive: true,
-    keepAliveInitialDelayMillis: 10000,
-    retry_strategy: function (options) {
-        if (options.error) {
-            console.error("Database connection error:", options.error);
-            return true;
-        }
-        return false;
-    },
+    keepAliveInitialDelayMillis: 5000,
 });
 
-pool.on("error", (err, client) => {
-    console.error("Erro inesperado no pool de conexões:", err);
-});
+const handlePoolError = async (err, client) => {
+    console.error("Erro no pool de conexões:", err);
+    try {
+        const newClient = await pool.connect();
+        console.log("Nova conexão estabelecida após erro");
+        newClient.release();
+    } catch (error) {
+        console.error("Erro ao tentar reconectar:", error);
+    }
+};
+
+pool.on("error", handlePoolError);
 
 pool.on("connect", (client) => {
     console.log("Nova conexão estabelecida com o banco de dados");

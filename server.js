@@ -7,20 +7,51 @@ const routes = require("./routes");
 const pool = require("./config/database");
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
+
+// Configuração do EJS
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 // Middlewares
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, "views")));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
 
-// Rota para a página inicial
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "views", "pages", "home.html"));
+// Middleware de erro global
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({
+        success: false,
+        error: 'Erro interno do servidor'
+    });
 });
 
-// Usando as rotas definidas
+// Rotas da API
 app.use("/api", routes);
+
+// Rotas do frontend
+app.get("/", (req, res) => {
+    res.render('pages/home');
+});
+
+app.get("/tasks", (req, res) => {
+    res.render('pages/tasks');
+});
+
+app.get("/categories", (req, res) => {
+    res.render('pages/categories');
+});
+
+app.get("/users", (req, res) => {
+    res.render('pages/users');
+});
+
+// Rota 404
+app.use((req, res) => {
+    res.status(404).render('pages/404');
+});
 
 // Teste de conexão com o banco de dados
 const testDatabaseConnection = async () => {
@@ -30,7 +61,7 @@ const testDatabaseConnection = async () => {
         client.release();
     } catch (err) {
         console.error("Erro ao conectar com o banco de dados:", err);
-        process.exit(1); // Encerra o servidor se não conseguir conectar ao banco
+        process.exit(1);
     }
 };
 

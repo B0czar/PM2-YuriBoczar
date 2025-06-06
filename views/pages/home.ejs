@@ -1,0 +1,58 @@
+<%- contentFor('body') %>
+
+<div class="jumbotron bg-light p-5 rounded-3 mb-4">
+    <h1 class="display-4">Bem-vindo ao Sistema de Gerenciamento de Tarefas</h1>
+    <p class="lead">Gerencie suas tarefas, categorias e usuários de forma simples e eficiente.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="bi bi-list-task me-2"></i>
+                    Gerenciamento de Tarefas
+                </h5>
+                <p class="card-text">Crie, edite e organize suas tarefas de forma eficiente.</p>
+                <a href="/tasks" class="btn btn-primary">
+                    <i class="bi bi-arrow-right me-1"></i>
+                    Acessar Tarefas
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="bi bi-tags me-2"></i>
+                    Gerenciamento de Categorias
+                </h5>
+                <p class="card-text">Organize suas tarefas em categorias para melhor controle.</p>
+                <a href="/categories" class="btn btn-primary">
+                    <i class="bi bi-arrow-right me-1"></i>
+                    Acessar Categorias
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="bi bi-people me-2"></i>
+                    Gerenciamento de Usuários
+                </h5>
+                <p class="card-text">Gerencie os usuários do sistema e suas permissões.</p>
+                <a href="/users" class="btn btn-primary">
+                    <i class="bi bi-arrow-right me-1"></i>
+                    Acessar Usuários
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('pageScript', 'home') %> 
