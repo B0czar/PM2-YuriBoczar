@@ -1,14 +1,256 @@
-body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
-header { background: #1787a9; color: #ffffff; padding: 20px; text-align: center; }
-nav a { color: #ffffff; margin: 0 15px; text-decoration: none; }
-main { padding: 20px; }
-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; background: #fff; }
-th, td { border: 1px solid #ddd; padding: 10px; }
-th { background: #f4f4f4; }
-button { margin-right: 5px; padding: 5px 10px; background-color: #1787a9; color: #ffffff; border: none; cursor: pointer; }
-button:hover { background-color: #1c1c1c; }
-form { display: flex; flex-direction: column; max-width: 500px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 4px; }
-form label { margin-top: 10px; }
-form input, form textarea, form select { padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; }
-form button { margin-top: 15px; padding: 10px; background-color: #35424a; color: #ffffff; border: none; cursor: pointer; border-radius: 4px; }
-form button:hover { background-color: #1c1c1c; } 
+:root {
+  --primary: #1787a9;
+  --primary-dark: #126d86;
+  --secondary: #35424a;
+  --light: #ffffff;
+  --grey-light: #f4f4f4;
+  --grey: #ddd;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--grey-light);
+  color: #333;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ---------------- HEADER ---------------- */
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, var(--primary) 0%, #1d976c 100%);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease-in-out infinite;
+  color: var(--light);
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+nav {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+nav a {
+  color: var(--light);
+  margin: 8px 12px;
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  transition: opacity 0.3s;
+}
+
+nav a::after {
+  content: "";
+  height: 2px;
+  width: 0;
+  background: var(--light);
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  transition: width 0.3s ease;
+}
+
+nav a:hover {
+  opacity: 0.85;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+/* ---------------- HERO SECTION ---------------- */
+.hero {
+  position: relative;
+  height: 280px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.hero video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.hero .overlay h2 {
+  color: var(--light);
+  font-size: 2rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* ---------------- MAIN ---------------- */
+main {
+  padding: 40px 20px;
+  animation: fadeIn 0.8s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------------- TABLES ---------------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+  background: var(--light);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+th,
+td {
+  border: none;
+  padding: 12px 15px;
+  text-align: left;
+}
+
+thead th {
+  background: var(--grey-light);
+  font-weight: 600;
+}
+
+tbody tr:nth-child(even) {
+  background: #fafafa;
+}
+
+tbody tr:hover {
+  background: #f1f1f1;
+}
+
+/* ---------------- BUTTONS ---------------- */
+button {
+  margin-right: 6px;
+  padding: 7px 14px;
+  background-color: var(--primary);
+  color: var(--light);
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* ---------------- FORMS ---------------- */
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin: 0 auto;
+  background: var(--light);
+  padding: 25px 30px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+form label {
+  margin-top: 15px;
+  font-weight: 500;
+}
+
+form input,
+form textarea,
+form select {
+  padding: 10px 12px;
+  margin-top: 6px;
+  border: 1px solid var(--grey);
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+form input:focus,
+form textarea:focus,
+form select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(23, 135, 169, 0.2);
+}
+
+form button {
+  margin-top: 20px;
+  padding: 10px 16px;
+  background-color: var(--secondary);
+}
+
+form button:hover {
+  background-color: var(--primary-dark);
+}
+
+/* ---------------- UTILITIES ---------------- */
+.d-none {
+  display: none !important;
+}
+
+@media (max-width: 600px) {
+  nav a {
+    margin: 6px 8px;
+  }
+
+  .hero {
+    height: 200px;
+  }
+
+  .hero .overlay h2 {
+    font-size: 1.4rem;
+  }
+}
