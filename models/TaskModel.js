@@ -2,15 +2,15 @@ const pool = require("../config/database");
 
 class Task {
     static async create(taskData) {
-        const { title, description, status, user_id, category_id, due_date } =
+        const { name, description, status, user_id, category_id, due_date } =
             taskData;
         const query = `
-            INSERT INTO tasks (title, description, status, user_id, category_id, due_date)
+            INSERT INTO tasks (name, description, status, user_id, category_id, due_date)
             VALUES ($1, $2, $3, $4, $5, $6)
             RETURNING *
         `;
         const values = [
-            title,
+            name,
             description,
             status,
             user_id,
@@ -61,11 +61,11 @@ class Task {
     }
 
     static async update(id, taskData) {
-        const { title, description, status, user_id, category_id, due_date } =
+        const { name, description, status, user_id, category_id, due_date } =
             taskData;
         const query = `
             UPDATE tasks
-            SET title = $1,
+            SET name = $1,
                 description = $2,
                 status = $3,
                 user_id = $4,
@@ -76,7 +76,7 @@ class Task {
             RETURNING *
         `;
         const values = [
-            title,
+            name,
             description,
             status,
             user_id,

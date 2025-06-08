@@ -1,0 +1,39 @@
+<h2>Lista de Categorias</h2>
+<a href="/categories/new">Nova Categoria</a>
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% categories.forEach(category => { %>
+      <tr data-id="<%= category.id %>">
+        <td><%= category.name %></td>
+        <td>
+          <button class="edit-btn" data-id="<%= category.id %>">Editar</button>
+          <button class="delete-btn" data-id="<%= category.id %>">Excluir</button>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<script>
+  document.querySelectorAll('.delete-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const id = btn.dataset.id;
+      if (confirm('Tem certeza que deseja excluir esta categoria?')) {
+        const res = await fetch('/api/categories/' + id, { method: 'DELETE' });
+        if (res.ok) location.reload();
+        else alert('Erro ao excluir categoria');
+      }
+    });
+  });
+  document.querySelectorAll('.edit-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.id;
+      window.location.href = '/categories/' + id + '/edit';
+    });
+  });
+</script> 

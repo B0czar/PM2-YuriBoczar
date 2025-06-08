@@ -1,0 +1,63 @@
+<h2><%= pageTitle %></h2>
+<form id="task-form">
+  <label for="name">Título:</label>
+  <input type="text" id="name" name="name" value="<%= task.name || '' %>" required>
+
+  <label for="description">Descrição:</label>
+  <textarea id="description" name="description" required><%= task.description || '' %></textarea>
+
+  <label for="status">Status:</label>
+  <select id="status" name="status" required>
+    <option value="Backlog" <%= task.status === 'Backlog' ? 'selected' : '' %>>Backlog</option>
+    <option value="Em progresso" <%= task.status === 'Em progresso' ? 'selected' : '' %>>Em progresso</option>
+    <option value="Ok" <%= task.status === 'Ok' ? 'selected' : '' %>>Ok</option>
+  </select>
+
+  <label for="user_id">Usuário:</label>
+  <select id="user_id" name="user_id" required>
+    <% users.forEach(user => { %>
+      <option value="<%= user.id %>" <%= task.user_id === user.id ? 'selected' : '' %>><%= user.name %></option>
+    <% }) %>
+  </select>
+
+  <label for="category_id">Categoria:</label>
+  <select id="category_id" name="category_id" required>
+    <% categories.forEach(category => { %>
+      <option value="<%= category.id %>" <%= task.category_id === category.id ? 'selected' : '' %>><%= category.name %></option>
+    <% }) %>
+  </select>
+
+  <label for="due_date">Data de Vencimento:</label>
+  <input type="date" id="due_date" name="due_date" value="<%= task.due_date ? new Date(task.due_date).toISOString().split('T')[0] : '' %>" required>
+
+  <button type="submit">Salvar</button>
+</form>
+
+<script>
+  document.getElementById('task-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = {
+      name: document.getElementById('name').value,
+      description: document.getElementById('description').value,
+      status: document.getElementById('status').value,
+      user_id: document.getElementById('user_id').value,
+      category_id: document.getElementById('category_id').value,
+      due_date: document.getElementById('due_date').value
+    };
+    try {
+      const res = await fetch('<%= action %>', {
+        method: '<%= method %>',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (res.ok) {
+        window.location.href = '/';
+      } else {
+        const err = await res.json();
+        alert('Erro: ' + (err.message || res.statusText));
+      }
+    } catch (error) {
+      alert('Erro ao salvar tarefa');
+    }
+  });
+</script> 

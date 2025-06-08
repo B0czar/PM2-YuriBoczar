@@ -1,0 +1,41 @@
+<h2>Lista de Usuários</h2>
+<a href="/users/new">Novo Usuário</a>
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% users.forEach(user => { %>
+      <tr data-id="<%= user.id %>">
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td>
+          <button class="edit-btn" data-id="<%= user.id %>">Editar</button>
+          <button class="delete-btn" data-id="<%= user.id %>">Excluir</button>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<script>
+  document.querySelectorAll('.delete-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const id = btn.dataset.id;
+      if (confirm('Tem certeza que deseja excluir este usuário?')) {
+        const res = await fetch('/api/users/' + id, { method: 'DELETE' });
+        if (res.ok) location.reload();
+        else alert('Erro ao excluir usuário');
+      }
+    });
+  });
+  document.querySelectorAll('.edit-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.id;
+      window.location.href = '/users/' + id + '/edit';
+    });
+  });
+</script> 

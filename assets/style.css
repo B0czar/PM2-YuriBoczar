@@ -1,0 +1,14 @@
+body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
+header { background: #1787a9; color: #ffffff; padding: 20px; text-align: center; }
+nav a { color: #ffffff; margin: 0 15px; text-decoration: none; }
+main { padding: 20px; }
+table { width: 100%; border-collapse: collapse; margin-bottom: 20px; background: #fff; }
+th, td { border: 1px solid #ddd; padding: 10px; }
+th { background: #f4f4f4; }
+button { margin-right: 5px; padding: 5px 10px; background-color: #1787a9; color: #ffffff; border: none; cursor: pointer; }
+button:hover { background-color: #1c1c1c; }
+form { display: flex; flex-direction: column; max-width: 500px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 4px; }
+form label { margin-top: 10px; }
+form input, form textarea, form select { padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; }
+form button { margin-top: 15px; padding: 10px; background-color: #35424a; color: #ffffff; border: none; cursor: pointer; border-radius: 4px; }
+form button:hover { background-color: #1c1c1c; } 

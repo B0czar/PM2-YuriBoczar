@@ -1,0 +1,48 @@
+<h2>Lista de Tarefas</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Título</th>
+      <th>Descrição</th>
+      <th>Status</th>
+      <th>Usuário</th>
+      <th>Categoria</th>
+      <th>Data de Vencimento</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% tasks.forEach(task => { %>
+      <tr data-id="<%= task.id %>">
+        <td><%= task.name %></td>
+        <td><%= task.description %></td>
+        <td><%= task.status %></td>
+        <td><%= task.user_name %></td>
+        <td><%= task.category_name %></td>
+        <td><%= new Date(task.due_date).toISOString().split('T')[0] %></td>
+        <td>
+          <button class="edit-btn" data-id="<%= task.id %>">Editar</button>
+          <button class="delete-btn" data-id="<%= task.id %>">Excluir</button>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<script>
+  document.querySelectorAll('.delete-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const id = btn.dataset.id;
+      if (confirm('Tem certeza que deseja excluir esta tarefa?')) {
+        const res = await fetch('/api/tasks/' + id, { method: 'DELETE' });
+        if (res.ok) location.reload();
+        else alert('Erro ao excluir tarefa');
+      }
+    });
+  });
+  document.querySelectorAll('.edit-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.id;
+      window.location.href = '/tasks/' + id + '/edit';
+    });
+  });
+</script>

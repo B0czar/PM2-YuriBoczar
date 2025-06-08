@@ -3,7 +3,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
+const expressLayouts = require("express-ejs-layouts");
 const routes = require("./routes");
+const frontRoutes = require("./routes/frontRoutes");
 const pool = require("./config/database");
 
 const app = express();
@@ -12,12 +14,16 @@ const port = 3000;
 // Middlewares
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, "views")));
 
-// Rota para a página inicial
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "views", "pages", "home.html"));
-});
+// EJS Layouts configuration
+app.use(expressLayouts);
+app.set("layout", "layout/main");
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+app.use(express.static(path.join(__dirname, "assets")));
+
+// Mount front-end routes
+app.use("/", frontRoutes);
 
 // Usando as rotas definidas
 app.use("/api", routes);
