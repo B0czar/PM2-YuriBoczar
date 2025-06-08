@@ -31,7 +31,7 @@ flowchart TB
         %% Models
         subgraph Models
             modelUser[User<br>id<br>nome<br>email]
-            modelTask[Task<br>id<br>title<br>description<br>status<br>userId<br>categoryId]
+            modelTask[Task<br>id<br>name<br>description<br>status<br>userId<br>categoryId]
             modelCategory[Category<br>id<br>name]
         end
     end

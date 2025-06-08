@@ -2,7 +2,10 @@
 
 ## Introdução
 
-Este documento descreve a arquitetura e implementação do Gerenciador de Tarefas, um sistema web desenvolvido como parte do projeto individual do Módulo 2 do curso de Ciência da Computação do Inteli.
+O **Gerenciador de Tarefas** é uma aplicação web full-stack que permite criar, organizar e acompanhar atividades, oferecendo tanto uma **API REST** quanto páginas web renderizadas no servidor.  
+Desde a última iteração o sistema recebeu melhorias de experiência de usuário (novo layout responsivo, cabeçalho animado e seção *hero* com vídeo) e ajustes de nomenclatura no banco de dados.
+
+> Versão do documento: **2024-06-08**
 
 ### Objetivo do Sistema
 
@@ -10,10 +13,10 @@ O Gerenciador de Tarefas é uma aplicação web que permite aos usuários gerenc
 
 ### Tecnologias Principais
 
--   **Backend**: Node.js com Express.js
--   **Banco de Dados**: PostgreSQL
--   **Arquitetura**: MVC (Model-View-Controller)
--   **Testes**: Jest para testes automatizados
+- Backend : Node.js + Express  
+- Banco de Dados : PostgreSQL  
+- Visualização : EJS + CSS vanilla
+- Testes : Jest + Supertest
 
 ### Funcionalidades Principais
 
@@ -45,8 +48,8 @@ O sistema utiliza um banco de dados PostgreSQL com as seguintes tabelas principa
 
 ```mermaid
 erDiagram
-    users ||--o{ tasks : creates
-    categories ||--o{ tasks : categorizes
+    users ||--o{ tasks : "cria"
+    categories ||--o{ tasks : "classifica"
 
     users {
         UUID id PK
@@ -65,7 +68,7 @@ erDiagram
 
     tasks {
         UUID id PK
-        VARCHAR title
+        VARCHAR name
         TEXT description
         VARCHAR status
         UUID user_id FK
@@ -119,7 +122,7 @@ CREATE TRIGGER trg_categories_updated_at
 -- tabela tasks
 CREATE TABLE IF NOT EXISTS tasks (
   id          UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  title       VARCHAR(255) NOT NULL,
+  name        VARCHAR(255) NOT NULL,
   description TEXT NOT NULL,
   status      VARCHAR(255) NOT NULL,
   user_id     UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -171,7 +174,7 @@ O sistema implementa uma API RESTful com os seguintes endpoints:
   - Body:
     ```json
     {
-      "title": "Título da tarefa",
+      "name": "Título da tarefa",
       "description": "Descrição da tarefa",
       "status": "pending",
       "user_id": "uuid-do-usuario",
