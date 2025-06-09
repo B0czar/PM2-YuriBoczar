@@ -1,15 +1,24 @@
 const { Pool } = require("pg");
 require("dotenv").config();
 
+// Helper to guarantee that env vars do not contain leading/trailing spaces or line-breaks
+const env = (key, fallback) => {
+    const value = process.env[key];
+    if (typeof value === "string") return value.trim();
+    return fallback;
+};
+
 const pool = new Pool({
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
-    ssl: {
-        rejectUnauthorized: false,
-    },
+    host: env("DB_HOST"),
+    port: env("DB_PORT"),
+    user: env("DB_USER"),
+    password: env("DB_PASSWORD"),
+    database: env("DB_DATABASE"),
+    // SSL is mandatory on Supabase and other managed Postgres services.
+    // When running locally (e.g., with Docker / local Postgres) you can disable it by setting DB_SSL=false.
+    ssl: env("DB_SSL", "true") === "true" ? { rejectUnauthorized: false } : false,
+
+    // Pool tuning parameters
     max: 20,
     idleTimeoutMillis: 60000,
     connectionTimeoutMillis: 30000,

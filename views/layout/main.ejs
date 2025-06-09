@@ -2,18 +2,22 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= pageTitle %></title>
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
   <header>
-    <h1>Gerenciador de Tarefas</h1>
-    <nav>
-      <a href="/">Tarefas</a>
-      <a href="/tasks/new">Nova Tarefa</a>
-      <a href="/users">Usuários</a>
-      <a href="/categories">Categorias</a>
-    </nav>
+    <div class="header-content">
+      <h1 class="logo">Gerenciador<span> de Tarefas</span></h1>
+      <p class="author">by Yuri Boczar</p>
+      <nav class="nav-links">
+        <a href="/">Tarefas</a>
+        <a href="/tasks/new">Nova Tarefa</a>
+        <a href="/users">Usuários</a>
+        <a href="/categories">Categorias</a>
+      </nav>
+    </div>
   </header>
   <main>
     <%- body %>

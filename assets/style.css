@@ -23,16 +23,14 @@ body {
 
 /* ---------------- HEADER ---------------- */
 header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
   background: linear-gradient(135deg, var(--primary) 0%, #1d976c 100%);
   background-size: 400% 400%;
   animation: gradientBG 15s ease-in-out infinite;
   color: var(--light);
-  text-align: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
@@ -46,6 +44,47 @@ header {
   100% {
     background-position: 0% 50%;
   }
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.logo span {
+  font-weight: 300;
+}
+
+.author {
+  font-size: 0.7rem;
+  margin: -2px 0 0 0;
+  opacity: 0.8;
+  font-style: italic;
+  display: block;
+  text-align: center;
+}
+
+/* Keep compatibility with existing nav styles */
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Remove extra top margin when nav sits inline in header */
+.header-content nav {
+  margin-top: 0;
 }
 
 nav {
