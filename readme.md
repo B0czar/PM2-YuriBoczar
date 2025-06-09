@@ -1,7 +1,6 @@
 # Gerenciador de Tarefas
 
-Um aplicativo web completo para organização de tarefas desenvolvido como projeto individual do **Módulo&nbsp;2 – Ciência da Computação (Inteli)**.  
-O sistema segue a arquitetura **MVC**, utiliza **Node.js + Express** no backend, **EJS** para server-side rendering e **PostgreSQL** para persistência dos dados.  
+Um aplicativo web completo para organização de tarefas desenvolvido como projeto individual do **Módulo&nbsp;2 – Ciência da Computação (Inteli)**. O sistema segue a arquitetura **MVC**, utiliza **Node.js + Express** no backend, **EJS** para server-side rendering e **PostgreSQL** para persistência dos dados.  
 Com ele é possível:
 
 * Cadastrar usuários, categorias e tarefas;
@@ -98,7 +97,22 @@ Com ele é possível:
 
 | Documento | Descrição |
 |-----------|-----------|
-| `documents/wad.md` | Web Application Document – requisitos, diagramas e referências da API |
-| `documents/architecture.md` | Diagrama de componentes (MVC) |
-| `documents/tables.md` | Script SQL das tabelas |
+| [Web Application Document](documents/wad.md) | Requisitos, diagramas e referências da API |
+| [Arquitetura](documents/architecture.md) | Diagrama de componentes (MVC) |
+| [Tabelas do Banco](documents/tables.md) | Script SQL das tabelas |
+
+## 📁 Arquivos principais
+
+| Arquivo | Descrição |
+|---------|-----------|
+| [Configuração do Banco](config/database.js) | Configuração da conexão com PostgreSQL |
+| [Modelo de Tarefas](models/TaskModel.js) | Definição e operações com tarefas |
+| [Modelo de Usuários](models/UserModel.js) | Definição e operações com usuários |
+| [Modelo de Categorias](models/CategoryModel.js) | Definição e operações com categorias |
+| [Controlador de Tarefas](controllers/TaskController.js) | Lógica de negócio para tarefas |
+| [Rotas Frontend](routes/frontRoutes.js) | Rotas das páginas web |
+| [Rotas API](routes/index.js) | Rotas da API REST |
+| [Layout Principal](views/layout/main.ejs) | Template base da aplicação |
+| [Estilos](assets/style.css) | Estilos CSS da aplicação |
+| [Script de Inicialização](scripts/init.sql) | Script SQL para criar o banco de dados |
 
