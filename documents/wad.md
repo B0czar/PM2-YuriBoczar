@@ -267,4 +267,26 @@ Todas as respostas da API seguem o seguinte formato:
 - 400: Requisição inválida
 - 404: Recurso não encontrado
 - 500: Erro interno do servidor
-$$
+
+## 📚 Aprendizados & Desafios
+
+| Desafio | Solução Aplicada |
+|---------|------------------|
+| **Trazer feedback em tempo real** para o usuário ao alterar status de tarefas | Utilizado **Fetch API** com `fetch('/api/tasks/:id', { method: 'PUT' })` e atualização otimista do DOM para evitar recarregar a página |
+| **Validação de entradas** tanto no cliente quanto no servidor | Criados middlewares de validação (Joi) no backend e constraints HTML5 no frontend, assegurando mensagens claras de erro |
+
+
+### Pontos que funcionaram bem
+
+* Estrutura **MVC** clara facilitando manutenção.
+* Separação de camadas permitiu trocar *views* sem impactar rotas.
+* Cobertura de testes reduziu regressões durante refactors.
+
+### Pontos a melhorar futuramente
+
+* Adicionar WebSockets para atualização em tempo real entre usuários.
+* Criar layout com componente design system (ex.: Tailwind ou Bootstrap 5).
+
+---
+
+_Última atualização: 2024-06-13_

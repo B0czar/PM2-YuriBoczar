@@ -116,3 +116,33 @@ Com ele é possível:
 | [Estilos](assets/style.css) | Estilos CSS da aplicação |
 | [Script de Inicialização](scripts/init.sql) | Script SQL para criar o banco de dados |
 
+---
+
+## 🎬 Demonstração em Vídeo
+
+Assista ao funcionamento completo da aplicação (backend + frontend) em menos de **5&nbsp;minutos**:
+[![Assista à demonstração](assets/640E369B-EEC2-4224-BFEC-79C672424164.png)](https://drive.google.com/file/d/1gwfaibFoDVNUwUEAnFNbnhvvUOx3UPqg/view?usp=drive_link)
+
+> Clique na imagem acima para assistir ao vídeo de demonstração no Google Drive.
+---
+
+## 📸 Capturas de Tela
+
+| Tela | Descrição |
+|------|-----------|
+| ![Home](assets/{640E369B-EEC2-4224-BFEC-79C672424164}.png) | Página inicial com listagem e status das tarefas |
+| ![Nova Tarefa](assets/{C65B2AD5-16D6-4600-AC38-7C205EFABEFC}.png) | Formulário para criação de uma nova Tarefa  |
+| ![Usuários](assets/image.png) | Página de usuários |
+| ![Novo Usuário](assets/{85B5417D-8C30-445C-B385-DBD7C71CC7B8}.png) |  Formulário para criação de um novo usuário |
+| ![Categorias](assets/{E7CD0A44-BAA6-40C3-AEFA-5656656789CD}.png) |  Página de categorias |
+| ![Nova Categoria](assets/{5267BE0D-DF75-4F83-AA92-220CF3C0709D}.png) |  Formulário para criação de uma nova categoria  |
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+| Camada | Tecnologias |
+|--------|-------------|
+| Backend | Node.js 20 · Express 4 |
+| Frontend (SSR) | EJS · HTML5 · CSS&nbsp;Vanilla |
+| Banco de Dados | PostgreSQL 16 |
+
