@@ -120,8 +120,8 @@ Com ele é possível:
 
 ## 🎬 Demonstração em Vídeo
 
-Assista ao funcionamento completo da aplicação (backend + frontend) em menos de **5&nbsp;minutos**:
-[![Assista à demonstração](assets/640E369B-EEC2-4224-BFEC-79C672424164.png)](https://drive.google.com/file/d/1gwfaibFoDVNUwUEAnFNbnhvvUOx3UPqg/view?usp=drive_link)
+Assista ao funcionamento completo da aplicação (backend + frontend) em menos de **5&nbsp;minutos**:  
+[![Assista à demonstração](assets/Untitled.png)](https://drive.google.com/file/d/1gwfaibFoDVNUwUEAnFNbnhvvUOx3UPqg/view?usp=drive_link)
 
 > Clique na imagem acima para assistir ao vídeo de demonstração no Google Drive.
 ---
